@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getOrCreateUser, decrementCredits } from "@/lib/auth";
-import { generateAvatar } from "@/lib/replicate";
+import { generateAvatar } from "@/lib/huggingface";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {

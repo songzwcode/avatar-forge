@@ -1,8 +1,6 @@
-import Replicate from "replicate";
+import { HfInference } from "@huggingface/inference";
 
-export const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN,
-});
+const hf = new HfInference(process.env.HUGGINGFACE_TOKEN);
 
 // Style modifiers for game avatar generation
 export const STYLE_MODIFIERS: Record<string, string> = {
@@ -30,31 +28,23 @@ export const DEFAULT_AVATAR_PROMPT =
 export async function generateAvatar(
   prompt: string,
   style: string,
-  refImageBase64?: string
+  _refImageBase64?: string
 ): Promise<string> {
   const styleModifier = STYLE_MODIFIERS[style] || STYLE_MODIFIERS["anime"];
-  const fullPrompt = `${prompt}, ${styleModifier}, ${DEFAULT_AVATAR_PROMPT}`;
+  const fullPrompt = prompt + ", " + styleModifier + ", " + DEFAULT_AVATAR_PROMPT;
 
-  // Using Flux Schnell for fast generation (2-4 seconds)
-  // Alternative: stability-ai/sdxl for higher quality
-  const model =
-    "black-forest-labs/flux-schnell:c846a69991daf4c0e5d016514849d14ee5b2e6846ce6b9d6f21369e564cfe51e";
+  // Using Stable Diffusion XL on Hugging Face (free tier)
+  const model = "stabilityai/stable-diffusion-xl-base-1.0";
 
-  const input: Record<string, unknown> = {
-    prompt: fullPrompt,
-    num_outputs: 1,
-    aspect_ratio: "1:1",
-    output_format: "png",
-  };
-
-  if (refImageBase64) {
-    input.image = refImageBase64;
-    input.prompt = `${prompt}, ${styleModifier}, consistent character with reference image`;
-  }
-
-  const output = await replicate.run(model, { input }) as unknown;
-
-  // Output is an array of URLs
-  const outputArray = output as string[];
-  return outputArray[0];
+  const base64 = await hf.textToImage({
+    inputs: fullPrompt,
+    model,
+    parameters: {
+      height: 512,
+      width: 512,
+      guidance_scale: 7.5,
+      num_inference_steps: 30,
+    },
+  });
+  return base64;
 }
