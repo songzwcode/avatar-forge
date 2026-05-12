@@ -53,7 +53,7 @@ export const GAME_STYLES = [
     description: "Victorian mechanical warriors",
     color: "#f59e0b",
     preview:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=200&h=200&fit=crop",
+      "https://images.unsplash.com/photo-1535378437327-b71491516fbd?w=200&h=200&fit=crop",
   },
   {
     id: "western",
@@ -61,7 +61,7 @@ export const GAME_STYLES = [
     description: "Rugged gunslingers",
     color: "#d97706",
     preview:
-      "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=200&h=200&fit=crop",
+      "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?w=200&h=200&fit=crop",
   },
 ] as const;
 

@@ -23,6 +23,8 @@ const EXAMPLE_AVATARS = [
   { style: "Anime", prompt: "Vibrant-haired mage with staff", img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&h=300&fit=crop" },
   { style: "Pixel", prompt: "8-bit knight hero", img: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300&h=300&fit=crop" },
   { style: "Horror", prompt: "Shadow demon lord", img: "https://images.unsplash.com/photo-1509248961725-aec71c5d2806?w=300&h=300&fit=crop" },
+  { style: "Steampunk", prompt: "Victorian mechanical warrior", img: "https://images.unsplash.com/photo-1535378437327-b71491516fbd?w=300&h=300&fit=crop" },
+  { style: "Western", prompt: "Rugged gunslinger at sunset", img: "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?w=300&h=300&fit=crop" },
 ];
 
 const FEATURES = [
@@ -131,7 +133,7 @@ export default function HomePage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-8 fade-up">
             <Sparkles className="w-4 h-4 text-violet-400" />
-            <span className="text-sm text-violet-300">Powered by Flux AI</span>
+            <span className="text-sm text-violet-300">Powered by Stable Diffusion</span>
           </div>
 
           {/* Headline */}
