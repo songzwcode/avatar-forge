@@ -1,36 +1,136 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AvatarForge
+
+AI-powered game character avatar generator. Transform text prompts into stunning game-ready avatars in 8 unique styles.
+
+## Features
+
+- **8 Game Styles**: Sci-Fi, Fantasy, Cyberpunk, Anime, Pixel Art, Horror, Steampunk, Western
+- **Text-to-Avatar**: Describe your character, AI generates it
+- **Reference Image**: Upload a photo for consistent character features
+- **Credits System**: Free tier (3/day) + Pro unlimited
+- **Stripe Integration**: Subscription and Lifetime Deal payment
+
+## Tech Stack
+
+- **Frontend**: Next.js 16 (App Router, TypeScript, Tailwind CSS v4)
+- **AI**: Replicate API (Flux Schnell model)
+- **Database**: SQLite via Prisma 5
+- **Payments**: Stripe
+- **Hosting**: Vercel-ready
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install Dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Set Up Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env` file:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+DATABASE_URL="file:./dev.db"
+REPLICATE_API_TOKEN="your_replicate_token"
+STRIPE_SECRET_KEY="your_stripe_secret"
+STRIPE_WEBHOOK_SECRET="your_webhook_secret"
+STRIPE_PRO_PRICE_ID="your_pro_price_id"
+STRIPE_LIFETIME_PRICE_ID="your_lifetime_price_id"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="your_publishable_key"
+```
 
-## Learn More
+### 3. Set Up Database
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm prisma migrate dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Run Development Server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm dev
+```
 
-## Deploy on Vercel
+Open [http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 5. Build for Production
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm build
+pnpm start
+```
+
+## API Keys Required
+
+### Replicate
+1. Sign up at [replicate.com](https://replicate.com)
+2. Get your API token from the dashboard
+3. The app uses `black-forest-labs/flux-schnell` model (fast generation, ~2-4 seconds)
+
+### Stripe
+1. Sign up at [stripe.com](https://stripe.com)
+2. Create a product for Pro subscription ($9.99/month)
+3. Create a product for Lifetime Deal ($49.99 one-time)
+4. Get your webhook secret after setting up a webhook endpoint
+
+## Project Structure
+
+```
+avatar-forge/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── generate/       # Avatar generation endpoint
+│   │   │   ├── credits/        # Credits check endpoint
+│   │   │   ├── create-checkout/ # Stripe checkout
+│   │   │   └── webhook/stripe/ # Stripe webhooks
+│   │   ├── dashboard/          # User dashboard
+│   │   ├── generate/            # Avatar generation UI
+│   │   ├── page.tsx             # Landing page
+│   │   └── globals.css           # Design system
+│   ├── components/
+│   │   ├── Navbar.tsx
+│   │   ├── StyleCard.tsx
+│   │   ├── ForgeButton.tsx
+│   │   ├── GenerationCard.tsx
+│   │   ├── CreditCounter.tsx
+│   │   ├── PricingCard.tsx
+│   │   └── Toast.tsx
+│   └── lib/
+│       ├── prisma.ts            # Prisma client
+│       ├── replicate.ts         # AI image generation
+│       ├── stripe.ts            # Stripe client
+│       ├── auth.ts              # User auth & credits
+│       └── styles.ts            # Game style configs
+├── prisma/
+│   └── schema.prisma            # Database schema
+├── SPEC.md                      # Design specification
+└── README.md
+```
+
+## Design System
+
+- **Colors**: Dark cyberpunk theme (near-black + violet/cyan neon accents)
+- **Typography**: Orbitron (headings), Inter (body), JetBrains Mono (code)
+- **Animations**: Float, fade-up, pulse-glow, reveal-burst
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push to GitHub
+2. Import project in Vercel
+3. Add environment variables
+4. Deploy
+
+### Docker
+
+```bash
+docker build -t avatar-forge .
+docker run -p 3000:3000 --env-file .env avatar-forge
+```
+
+## License
+
+MIT
