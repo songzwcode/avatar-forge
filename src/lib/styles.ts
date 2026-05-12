@@ -45,7 +45,7 @@ export const GAME_STYLES = [
     description: "Dark creatures and monsters",
     color: "#a855f7",
     preview:
-      "https://images.unsplash.com/photo-1509248961725-aec71c5d2806?w=200&h=200&fit=crop",
+      "https://images.unsplash.com/photo-1604982708338-4a01c5bdd0e2?w=200&h=200&fit=crop",
   },
   {
     id: "steampunk",

@@ -22,7 +22,7 @@ const EXAMPLE_AVATARS = [
   { style: "Cyberpunk", prompt: "Neon tattooed street samurai", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=300&fit=crop" },
   { style: "Anime", prompt: "Vibrant-haired mage with staff", img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&h=300&fit=crop" },
   { style: "Pixel", prompt: "8-bit knight hero", img: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300&h=300&fit=crop" },
-  { style: "Horror", prompt: "Shadow demon lord", img: "https://images.unsplash.com/photo-1509248961725-aec71c5d2806?w=300&h=300&fit=crop" },
+  { style: "Horror", prompt: "Shadow demon lord", img: "https://images.unsplash.com/photo-1604982708338-4a01c5bdd0e2?w=300&h=300&fit=crop" },
   { style: "Steampunk", prompt: "Victorian mechanical warrior", img: "https://images.unsplash.com/photo-1535378437327-b71491516fbd?w=300&h=300&fit=crop" },
   { style: "Western", prompt: "Rugged gunslinger at sunset", img: "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?w=300&h=300&fit=crop" },
 ];
